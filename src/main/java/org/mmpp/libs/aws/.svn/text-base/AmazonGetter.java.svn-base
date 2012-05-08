@@ -1,0 +1,259 @@
+package org.mmpp.libs.aws;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
+/**
+ * アマゾンからデータを抽出するクラス
+ * --
+ * 環境変数
+ * org.mmpp.aws.id : アマゾンのアクセスＩＤ
+ * @author nagai
+ *
+ */
+public class AmazonGetter {
+	
+	// 2009/01/15 固定から変更可能へ(環境変数:org.mmpp.aws.id)
+	// public String ASID = "1TT32G33GM90M3JXVYG2";
+
+	public String getASID(){
+		return System.getProperty("org.mmpp.aws.id");
+	}
+	/**
+	 * バーコードを用いたサービスurlを生成するメソッド
+	 * @param barcode バーコード
+	 * @return アクセスurl
+	 */
+	private String getAmazonItemUrlWithBarcode(String barcode){
+		// アマゾンアクセスアカウントを取得 //
+		String ASID = getASID();
+		// アクセスアカウントが取得できたか？
+		if(ASID==null)
+			// 出来ない場合、nullを返却
+			return null;
+		// 当該urlを取得
+		return  "http://webservices.amazon.co.jp/onca/xml?Service=AWSECommerceService&AWSAccessKeyId="+ASID+"&Operation=ItemLookup&IdType=ISBN&ItemId="+barcode+"&SearchIndex=Books";		
+	}
+	private String getAmazonItemUrlWithTitle(String title){
+		// アマゾンアクセスアカウントを取得 //
+		String ASID = getASID();
+		// アクセスアカウントが取得できたか？
+		if(ASID==null)
+			// 出来ない場合、nullを返却
+			return null;
+		// 当該urlを取得
+		String strUrl =   "http://webservices.amazon.co.jp/onca/xml?Service=AWSECommerceService&AWSAccessKeyId="+ASID+"&Operation=ItemSearch&Title="+title+"&SearchIndex=Books";
+		strUrl = strUrl.replaceAll(" ","+" );
+		return  strUrl;		
+	}
+	private String getAmazonItemUrlWithAuthor(String author){
+		// アマゾンアクセスアカウントを取得 //
+		String ASID = getASID();
+		// アクセスアカウントが取得できたか？
+		if(ASID==null)
+			// 出来ない場合、nullを返却
+			return null;
+		// 当該urlを取得
+		String strUrl =   "http://webservices.amazon.co.jp/onca/xml?Service=AWSECommerceService&AWSAccessKeyId="+ASID+"&Operation=ItemSearch&Author="+author+"&SearchIndex=Books";
+		strUrl = strUrl.replaceAll(" ","+" );
+		return  strUrl;		
+	}
+
+	public AmazonItem[] getAmazonItemWithBarcode(String barcode){
+		return getAmazonItems(barcode,null,null);
+	}
+	public AmazonItem[] getAmazonItems(String barcode,String title,String author){
+		
+		// アクセスurlを取得
+		// 
+		String strUrl;
+		if(barcode!=null){
+		 strUrl = getAmazonItemUrlWithBarcode(barcode);
+		}else{
+			if(title!=null){
+				strUrl = getAmazonItemUrlWithTitle(title);
+			}else{
+				strUrl = getAmazonItemUrlWithAuthor(author);
+			}
+		}
+		// urlが取得できたかの判断
+		if(strUrl==null)
+			// 出来ない場合
+			return null;
+		//System.out.println(" get url : "+strUrl);
+		// 返却変数初期化
+		AmazonItem[] clsAmazonItems = null;
+		
+		try { 
+			// http接続初期化
+			java.net.URL urlAmazon = new java.net.URL(strUrl);
+			
+			java.net.HttpURLConnection connectWeb = (java.net.HttpURLConnection)urlAmazon.openConnection();
+			connectWeb.setRequestMethod("GET");
+			java.net.HttpURLConnection.setFollowRedirects(false);
+			connectWeb.setInstanceFollowRedirects(false);
+			
+			
+			// 接続
+			connectWeb.connect();
+			
+			
+//			// 読み込みフェーズ
+//			java.io.BufferedReader br;
+//			String fld;
+//			try {
+//			     br=new java.io.BufferedReader(new java.io.InputStreamReader(connectWeb.getInputStream()));
+//			     while((fld=br.readLine())!=null){
+//			          System.out.print(fld);
+//			     }
+//			} catch (java.io.IOException e) {
+//			     e.printStackTrace();
+//			}
+
+			// XML解析フェーズ
+			// 参考 : http://www.hellohiro.com/xmldom.htm
+			//       http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/javax/xml/parsers/DocumentBuilder.html
+			try {
+				javax.xml.parsers.DocumentBuilderFactory  docBFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+				javax.xml.parsers.DocumentBuilder builder = docBFactory.newDocumentBuilder();
+				  // パースを実行してDocumentオブジェクトを取得
+				// Webのインプットストリームからドキュメント生成...
+				org.w3c.dom.Document doc = builder.parse(connectWeb.getInputStream());
+				
+				// ドキュメントを解析 ... 
+				clsAmazonItems = this.parseAmazonItemFromXML(doc);
+				
+			} catch (ParserConfigurationException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+
+			// 切断
+			connectWeb.disconnect();
+			
+		} catch (MalformedURLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ProtocolException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+		//	結果を返却
+		return clsAmazonItems;
+	}
+	
+	private AmazonItem[] parseAmazonItemFromXML(org.w3c.dom.Document xmlDocument){
+		
+		// ItemLookupResponseのエレメント取得
+		// org.w3c.dom.Element elmItemLookupResponse = xmlDocument.getElementById("ItemLookupResponse");
+		org.w3c.dom.Element elmItemLookupResponse = xmlDocument.getDocumentElement();
+		//System.out.println("->"+elmItemLookupResponse.getNodeName());
+
+		// 検索結果件数取得
+		org.w3c.dom.NodeList nlstRootItems = elmItemLookupResponse.getElementsByTagName("Items");
+		//System.out.println("-> Items "+nlstRootItems.getLength());
+		org.w3c.dom.Element elmItems = (org.w3c.dom.Element)nlstRootItems.item(0);
+		//System.out.println("-> "+elmItems.getNodeName());
+
+		// 結果件数を取得 ItemLookupResponse : Items : Itemのカウント？
+		org.w3c.dom.NodeList nlstItems = elmItems.getElementsByTagName("Item");
+
+		// 検索結果数を格納する変数 
+		int intResultCount = nlstItems.getLength();
+		//System.out.println(" get item count : " + intResultCount);
+		
+		AmazonItem clsAmazonItems[] = new AmazonItem[intResultCount];
+		for(int i = 0 ; i < intResultCount ; i ++ ){
+			// itemで繰り返す
+			System.out.println("  ==  "+i);
+
+			// 格納変数の初期化
+			clsAmazonItems[i] = new AmazonItem();
+			//System.out.println("  < " + nlstItems.item(i).getNodeName());
+
+			org.w3c.dom.Element elmItem = ((org.w3c.dom.Element)nlstItems.item(i));
+
+			org.w3c.dom.Element elmItemAttributes = (org.w3c.dom.Element)(elmItem.getElementsByTagName("ItemAttributes")).item(0);
+
+			{
+				// タイトル : ItemLookupResponse : Items : Item : ItemAttributes : Title
+				org.w3c.dom.Element elmItemTitle = (org.w3c.dom.Element)(elmItemAttributes.getElementsByTagName("Title")).item(0);
+				String strTitle = elmItemTitle.getFirstChild().getNodeValue();
+				
+				//System.out.println(" Title : "+strTitle);
+				clsAmazonItems[i].Title  = strTitle;
+			}			
+			{
+				// 著者 : ItemLookupResponse : Items : Item : ItemAttributes : Author
+//				org.w3c.dom.Element elmItemAuthor = (org.w3c.dom.Element)(elmItemAttributes.getElementsByTagName("Author")).item(0);
+//				String strAuthor = elmItemAuthor.getFirstChild().getNodeValue();
+
+				String strAuthor = getItemAttributeValue(elmItemAttributes,"Author");
+				//System.out.println(" Author : "+strAuthor);
+				clsAmazonItems[i].Author  = strAuthor;
+			}			
+			{
+				// 出版社 : ItemLookupResponse : Items : Item : ItemAttributes : Manufacturer
+				org.w3c.dom.Element elmItemManufacturer = (org.w3c.dom.Element)(elmItemAttributes.getElementsByTagName("Manufacturer")).item(0);
+				String strManufacturer = elmItemManufacturer.getFirstChild().getNodeValue();
+				
+				//System.out.println(" Manufacturer : "+strManufacturer);
+				clsAmazonItems[i].Manufacturer  = strManufacturer;
+			}			
+			{
+				// 種別？ : ItemLookupResponse : Items : Item : ItemAttributes : ProductGroup
+				org.w3c.dom.Element elmItemProductGroup = (org.w3c.dom.Element)(elmItemAttributes.getElementsByTagName("ProductGroup")).item(0);
+				String strProductGroup = elmItemProductGroup.getFirstChild().getNodeValue();
+				
+				//System.out.println(" ProductGroup : "+strProductGroup);
+				clsAmazonItems[i].ProductGroup  = strProductGroup;
+			}			
+			
+		}
+		
+		return clsAmazonItems;
+	}
+	
+	/**
+	 * アイテム欄の各情報を抽出するメソッド
+	 * @param attributeElement 抽出元アイテムアトリビュートエレメント
+	 * @param key 抽出キー
+	 * @return 抽出内容
+	 */
+	private String getItemAttributeValue(org.w3c.dom.Element attributeElement,String key){
+		org.w3c.dom.Element elmItemProductGroup = (org.w3c.dom.Element)(attributeElement.getElementsByTagName(key)).item(0);
+		if(elmItemProductGroup==null)
+			return null;
+		String strAttibuteValue = elmItemProductGroup.getFirstChild().getNodeValue();
+		
+
+		return strAttibuteValue;
+	}
+	public static void main(String[] args){
+        //System.setProperty("http.proxyHost","192.168.52.10"); 
+        //System.setProperty("http.proxyPort","8080");
+        
+//        (new AmazonGetter()).getAmazonItemWithBarcode("9784774109077");
+//        (new AmazonGetter()).getAmazonItemWithBarcode("9784798013732");
+//        (new AmazonGetter()).getAmazonItemWithBarcode("9784758052924");
+//        (new AmazonGetter()).getAmazonItemWithBarcode("9784088772431");
+//        (new AmazonGetter()).getAmazonItems(null,"ONE PIECE","");
+//        (new AmazonGetter()).getAmazonItems(null,null,"尾田 栄一郎");
+      (new AmazonGetter()).getAmazonItemWithBarcode("9784091831941");
+      (new AmazonGetter()).getAmazonItemWithBarcode("4091831915");
+
+        
+	}
+}
