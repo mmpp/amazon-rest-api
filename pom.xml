@@ -4,7 +4,7 @@
   </properties>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.mmpp.amazon</groupId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <artifactId>amazon-ecs</artifactId>
   <name>Amazon Web Service</name>
 	<build>
