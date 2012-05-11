@@ -2,11 +2,12 @@ package org.mmpp.libs.aws;
 
 
 /**
- * ƒAƒ}ƒ]ƒ“‚©‚ç‚Æ‚Á‚Ä‚«‚½ƒf[ƒ^‚ÌQÆXML
+ * ã‚¢ãƒã‚¾ãƒ³ã‹ã‚‰ã¨ã£ã¦ããŸãƒ‡ãƒ¼ã‚¿ã®å‚ç…§XML
  * 
- * Ql
+ * å‚è€ƒ
  * http://webservices.amazon.co.jp/onca/xml?Service=AWSECommerceService&AWSAccessKeyId=1TT32G33GM90M3JXVYG2&Operation=ItemLookup&IdType=ISBN&ItemId=9784774109077&SearchIndex=Books&ResponseGroup=Request,Small&Version=2008-12-10
- * ‚Å‚ÌAItemAttributes
+ * ã§ã®ã€ItemAttributes
+ * @author kou
  */
 public class AmazonItem {
 	public AmazonItem(){
@@ -19,10 +20,10 @@ public class AmazonItem {
 	public String ProductGroup;
 	public String Title; 
 	public String ISBN; 
-	// •¡”‚Ì’˜Ò‘Î‰ 2009/05/23 //
+	// è¤‡æ•°ã®è‘—è€…å¯¾å¿œ 2009/05/23 //
 	public java.util.ArrayList<java.util.HashMap<String,String>> Creators;
 	public java.util.ArrayList<String> Authors;
 
-	// ƒAƒ}ƒ]ƒ“ŠÇ—ID ISBN10‚È‚ç‚»‚Ì‚Ü‚ÜAISBN13‚È‚çƒ`ƒFƒbƒNƒTƒ€‚ªX‚Å“ª‚ª‚È‚µ //
+	// ã‚¢ãƒã‚¾ãƒ³ç®¡ç†ID ISBN10ãªã‚‰ãã®ã¾ã¾ã€ISBN13ãªã‚‰ãƒã‚§ãƒƒã‚¯ã‚µãƒ ãŒXã§é ­ãŒãªã— //
 	public String ASIN;
 }

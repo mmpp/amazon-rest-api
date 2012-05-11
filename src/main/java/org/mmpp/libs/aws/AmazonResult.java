@@ -1,7 +1,7 @@
 package org.mmpp.libs.aws;
 
 /**
- * ÀsŒ‹‰ÊŠi”[•Ï”
+ * å®Ÿè¡Œçµæœæ ¼ç´å¤‰æ•°
  * @author kou
  *
  */

@@ -16,22 +16,22 @@ public class AmazonGetterTest {
 		{
 			try {
 				AmazonItem[] items = getter.getAmazonItemWithBarcode("9784091831941");
-				assertEquals("ISBN13 ƒ^ƒCƒgƒ‹", items[0].Title,"ƒoƒE 4 (ƒrƒbƒOƒRƒ~ƒbƒNƒX)");
-				assertEquals("ISBN13 ’˜Ò", items[0].Author,"ƒeƒŠ[R–{");
-				assertEquals("ISBN13 ’˜Ò”z—ñ", items[0].Authors.get(0),"ƒeƒŠ[R–{");
-				assertEquals("ISBN13 o”ÅĞ", items[0].Manufacturer,"¬ŠwŠÙ");
+				assertEquals("ISBN13 ã‚¿ã‚¤ãƒˆãƒ«", items[0].Title,"ãƒã‚¦ 4 (ãƒ“ãƒƒã‚°ã‚³ãƒŸãƒƒã‚¯ã‚¹)");
+				assertEquals("ISBN13 è‘—è€…", items[0].Author,"ãƒ†ãƒªãƒ¼å±±æœ¬");
+				assertEquals("ISBN13 è‘—è€…é…åˆ—", items[0].Authors.get(0),"ãƒ†ãƒªãƒ¼å±±æœ¬");
+				assertEquals("ISBN13 å‡ºç‰ˆç¤¾", items[0].Manufacturer,"å°å­¦é¤¨");
 				assertEquals("ISBN13 ASIN", items[0].ASIN,"409183194X");
 			} catch (AmazonWebServiceException e) {
-				fail("—áŠO ”­¶");
+				fail("ä¾‹å¤– ç™ºç”Ÿ");
 			}
 		}
 		{
 		  try {
 			AmazonItem[] items = getter.getAmazonItemWithBarcode("4091831915");
-			  assertEquals("ISBN10 ƒ^ƒCƒgƒ‹", items[0].Title,"ƒoƒE (1) (ƒrƒbƒOƒRƒ~ƒbƒNƒX)");
-			  assertEquals("ISBN10 ’˜Ò", items[0].Author,"ƒeƒŠ[R–{");
-			  assertEquals("ISBN10 ’˜Ò”z—ñ", items[0].Authors.get(0),"ƒeƒŠ[R–{");
-			  assertEquals("ISBN10 o”ÅĞ", items[0].Manufacturer,"¬ŠwŠÙ");
+			  assertEquals("ISBN10 ã‚¿ã‚¤ãƒˆãƒ«", items[0].Title,"ãƒã‚¦ (1) (ãƒ“ãƒƒã‚°ã‚³ãƒŸãƒƒã‚¯ã‚¹)");
+			  assertEquals("ISBN10 è‘—è€…", items[0].Author,"ãƒ†ãƒªãƒ¼å±±æœ¬");
+			  assertEquals("ISBN10 è‘—è€…é…åˆ—", items[0].Authors.get(0),"ãƒ†ãƒªãƒ¼å±±æœ¬");
+			  assertEquals("ISBN10 å‡ºç‰ˆç¤¾", items[0].Manufacturer,"å°å­¦é¤¨");
 			  assertEquals("ISBN10 ASIN", items[0].ASIN,"4091831915");
 		} catch (AmazonWebServiceException e) {
 		}
@@ -46,10 +46,10 @@ public class AmazonGetterTest {
 		try {
 			 AmazonItem[] items = getter.getAmazonItemWithBarcode("98784592181187");
 			 if(items!=null);
-			fail("—áŠO Às");
+			fail("ä¾‹å¤– å®Ÿè¡Œ");
 		} catch (AmazonWebServiceException e) {
-			assertEquals("—áŠO Às Message: ", e.getMessage(),"98784592181187‚ÍAItemId‚Ì’l‚Æ‚µ‚Ä–³Œø‚Å‚·B’l‚ğ•ÏX‚µ‚Ä‚©‚çAÄ“xƒŠƒNƒGƒXƒg‚ğÀs‚µ‚Ä‚­‚¾‚³‚¢B");
-			assertEquals("—áŠO Às code : ", e.code,"AWS.InvalidParameterValue");
+			assertEquals("ä¾‹å¤– å®Ÿè¡Œ Message: ", e.getMessage(),"98784592181187ã¯ã€ItemIdã®å€¤ã¨ã—ã¦ç„¡åŠ¹ã§ã™ã€‚å€¤ã‚’å¤‰æ›´ã—ã¦ã‹ã‚‰ã€å†åº¦ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’å®Ÿè¡Œã—ã¦ãã ã•ã„ã€‚");
+			assertEquals("ä¾‹å¤– å®Ÿè¡Œ code : ", e.code,"AWS.InvalidParameterValue");
 
 		}
 		}
@@ -57,24 +57,24 @@ public class AmazonGetterTest {
 	
 	@Test
 	/**
-	 * ’˜ÒŒŸõ ... 
+	 * è‘—è€…æ¤œç´¢ ... 
 	 */
 	public void testGetAmazonItems() {
 		AmazonGetter getter = new AmazonGetter("1TT32G33GM90M3JXVYG2");
 		{
 			try {
-				AmazonItem[] items = getter.getAmazonItems(null, null, "Ä“¡—¢Œb");
-				assertEquals("’˜ÒŒŸõ ", items.length,1);
+				AmazonItem[] items = getter.getAmazonItems(null, null, "æ–‰è—¤é‡Œæµ");
+				assertEquals("è‘—è€…æ¤œç´¢ ", items.length,1);
 			} catch (AmazonWebServiceException e) {
-				fail("—áŠO Às");
+				fail("ä¾‹å¤– å®Ÿè¡Œ");
 			}
 		}
 		{
 			try {
-				AmazonItem[] items = getter.getAmazonItems(null, null, "_’Ë ‚Æ‚«‚¨");
-				assertEquals("’˜ÒŒŸõ ƒy[ƒWŒ×‚¬ ", items.length,17);
+				AmazonItem[] items = getter.getAmazonItems(null, null, "ç¥å¡š ã¨ããŠ");
+				assertEquals("è‘—è€…æ¤œç´¢ ãƒšãƒ¼ã‚¸è·¨ã ", items.length,17);
 			} catch (AmazonWebServiceException e) {
-				fail("—áŠO Às");
+				fail("ä¾‹å¤– å®Ÿè¡Œ");
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 package org.mmpp.libs.aws;
 
 /**
- * AmazonWebService (AWS) ŽÀŒø—áŠO
+ * AmazonWebService (AWS) å®ŸåŠ¹ä¾‹å¤–
  * @author kou
  * @since 2009/05/31
  */
