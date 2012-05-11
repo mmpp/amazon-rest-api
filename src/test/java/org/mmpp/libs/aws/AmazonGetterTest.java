@@ -1,4 +1,4 @@
-package org.mmpp.libs.aws.testcase;
+package org.mmpp.libs.aws;
 
 import static org.junit.Assert.*;
 
@@ -77,7 +77,6 @@ public class AmazonGetterTest {
 				fail("—áŠO Às");
 			}
 		}
-//		fail("‚Ü‚¾À‘•‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
 	}
 
 	
