@@ -4,7 +4,7 @@
   </properties>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.mmpp.amazon</groupId>
-  <version>1.0.1</version>
+  <version>2.0.0</version>
   <artifactId>amazon-ecs</artifactId>
   <name>Amazon Web Service</name>
 	<build>
@@ -49,13 +49,6 @@
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
-  		<groupId>ch.qos.logback</groupId>
-  		<artifactId>logback-classic</artifactId>
-  		<version>0.9.29</version>
-  		<type>jar</type>
-  		<scope>compile</scope>
-  	</dependency>
-  	<dependency>
   		<groupId>org.slf4j</groupId>
   		<artifactId>slf4j-api</artifactId>
   		<version>1.6.1</version>
@@ -67,7 +60,27 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.2</version>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.sli4j</groupId>
+			<artifactId>sli4j-slf4j-logback</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mmpp.amazon</groupId>
+			<artifactId>request-generator</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mmpp.amazon</groupId>
+			<artifactId>response-parser</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+  </dependencies>
     <repositories>
     <repository>
       <releases>
@@ -77,6 +90,11 @@
       <id>Maven Snapshots</id>
       <url>http://snapshots.maven.codehaus.org/maven2/</url>
     </repository>
+    <repository>
+      <id>mmpp.org</id>
+      <name>mmpp Repository</name>
+      <url>http://www.mmpp.org/repos/</url>
+    </repository>        
   </repositories>
     <pluginRepositories>
     <pluginRepository>
@@ -89,17 +107,11 @@
     </pluginRepository>
   </pluginRepositories>
     <distributionManagement>
-                <repository>
-                        <uniqueVersion>true</uniqueVersion>
-                        <id>mmpp.repos</id>
-                        <name>mmpp Repository</name>
-                        <url>dav:http://www.mmpp.org/repos/</url>
-                </repository>
-                <snapshotRepository>
-                        <uniqueVersion>true</uniqueVersion>
-                        <id>mmpp.repos</id>
-                        <name>mmpp Snapshot Repository</name>
-                        <url>dav:http://www.mmpp.org/repos/snapshot</url>
-                </snapshotRepository>
-        </distributionManagement>
+      <repository>
+		<uniqueVersion>true</uniqueVersion>
+	    <id>mmpp.repos</id>
+	    <name>mmpp Repository</name>
+	    <url>dav:http://www.mmpp.org/repos/</url>
+       </repository>
+	</distributionManagement>
 </project>
