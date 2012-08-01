@@ -1,12 +1,12 @@
-package org.mmpp.amazon.ecs;
+package org.mmpp.amazon.rest;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.mmpp.amazon.ecs.request.generator.RequestParameterException;
-import org.mmpp.amazon.ecs.request.generator.URLGenerator;
-import org.mmpp.amazon.ecs.request.model.Request;
-import org.mmpp.amazon.ecs.response.model.AbstractResponse;
+import org.mmpp.amazon.rest.request.generator.RequestParameterException;
+import org.mmpp.amazon.rest.request.generator.URLGenerator;
+import org.mmpp.amazon.rest.request.model.Request;
+import org.mmpp.amazon.rest.response.model.AbstractResponse;
 
 public class WebAccessService extends AbstractAccessService{
 	/**

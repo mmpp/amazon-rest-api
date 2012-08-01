@@ -1,11 +1,11 @@
-package org.mmpp.amazon.ecs;
+package org.mmpp.amazon.rest;
 
-import org.mmpp.amazon.ecs.request.generator.RequestParameterException;
-import org.mmpp.amazon.ecs.request.model.IdType;
-import org.mmpp.amazon.ecs.request.model.Request;
-import org.mmpp.amazon.ecs.request.model.SearchIndex;
-import org.mmpp.amazon.ecs.request.model.SearchType;
-import org.mmpp.amazon.ecs.response.model.AbstractResponse;
+import org.mmpp.amazon.rest.request.generator.RequestParameterException;
+import org.mmpp.amazon.rest.request.model.IdType;
+import org.mmpp.amazon.rest.request.model.Request;
+import org.mmpp.amazon.rest.request.model.SearchIndex;
+import org.mmpp.amazon.rest.request.model.SearchType;
+import org.mmpp.amazon.rest.response.model.AbstractResponse;
 
 
 /**

@@ -1,21 +1,21 @@
-package org.mmpp.amazon.ecs;
+package org.mmpp.amazon.rest;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.Map;
 
-import org.mmpp.amazon.ecs.model.Account;
-import org.mmpp.amazon.ecs.request.generator.RequestParameterException;
-import org.mmpp.amazon.ecs.request.model.AccessCertificate;
-import org.mmpp.amazon.ecs.request.model.AffiliateAccount;
-import org.mmpp.amazon.ecs.request.model.IdType;
-import org.mmpp.amazon.ecs.request.model.ItemLookupRequest;
-import org.mmpp.amazon.ecs.request.model.ItemSearchRequest;
-import org.mmpp.amazon.ecs.request.model.Request;
-import org.mmpp.amazon.ecs.request.model.SearchIndex;
-import org.mmpp.amazon.ecs.request.model.SearchType;
-import org.mmpp.amazon.ecs.response.model.AbstractResponse;
+import org.mmpp.amazon.rest.model.Account;
+import org.mmpp.amazon.rest.request.generator.RequestParameterException;
+import org.mmpp.amazon.rest.request.model.AccessCertificate;
+import org.mmpp.amazon.rest.request.model.AffiliateAccount;
+import org.mmpp.amazon.rest.request.model.IdType;
+import org.mmpp.amazon.rest.request.model.ItemLookupRequest;
+import org.mmpp.amazon.rest.request.model.ItemSearchRequest;
+import org.mmpp.amazon.rest.request.model.Request;
+import org.mmpp.amazon.rest.request.model.SearchIndex;
+import org.mmpp.amazon.rest.request.model.SearchType;
+import org.mmpp.amazon.rest.response.model.AbstractResponse;
 
 /**
  * Amazonの検索を行うサービスの実装クラス

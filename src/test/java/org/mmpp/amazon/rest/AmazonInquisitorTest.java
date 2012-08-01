@@ -1,4 +1,4 @@
-package org.mmpp.amazon.ecs;
+package org.mmpp.amazon.rest;
 
 import static org.junit.Assert.*;
 
@@ -6,26 +6,26 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.junit.Test;
-import org.mmpp.amazon.ecs.AbstractAccessService;
-import org.mmpp.amazon.ecs.AmazonInquisitor;
-import org.mmpp.amazon.ecs.AmazonInquisitorImpl;
-import org.mmpp.amazon.ecs.model.Account;
-import org.mmpp.amazon.ecs.request.generator.RequestParameterException;
-import org.mmpp.amazon.ecs.request.model.AccessCertificate;
-import org.mmpp.amazon.ecs.request.model.AffiliateAccount;
-import org.mmpp.amazon.ecs.request.model.ItemLookupRequest;
-import org.mmpp.amazon.ecs.request.model.Request;
-import org.mmpp.amazon.ecs.response.model.AbstractItemRequest;
-import org.mmpp.amazon.ecs.response.model.Author;
-import org.mmpp.amazon.ecs.response.model.ItemAttribute;
-import org.mmpp.amazon.ecs.response.model.ItemLink;
-import org.mmpp.amazon.ecs.response.model.ItemSearchRequest;
-import org.mmpp.amazon.ecs.response.model.ItemSearchResponse;
-import org.mmpp.amazon.ecs.response.model.ItemSearchResult;
-import org.mmpp.amazon.ecs.response.model.Manufacturer;
-import org.mmpp.amazon.ecs.response.model.OperationRequest;
-import org.mmpp.amazon.ecs.response.model.ProductGroup;
-import org.mmpp.amazon.ecs.response.model.Title;
+import org.mmpp.amazon.rest.AbstractAccessService;
+import org.mmpp.amazon.rest.AmazonInquisitor;
+import org.mmpp.amazon.rest.AmazonInquisitorImpl;
+import org.mmpp.amazon.rest.model.Account;
+import org.mmpp.amazon.rest.request.generator.RequestParameterException;
+import org.mmpp.amazon.rest.request.model.AccessCertificate;
+import org.mmpp.amazon.rest.request.model.AffiliateAccount;
+import org.mmpp.amazon.rest.request.model.ItemLookupRequest;
+import org.mmpp.amazon.rest.request.model.Request;
+import org.mmpp.amazon.rest.response.model.AbstractItemRequest;
+import org.mmpp.amazon.rest.response.model.Author;
+import org.mmpp.amazon.rest.response.model.ItemAttribute;
+import org.mmpp.amazon.rest.response.model.ItemLink;
+import org.mmpp.amazon.rest.response.model.ItemSearchRequest;
+import org.mmpp.amazon.rest.response.model.ItemSearchResponse;
+import org.mmpp.amazon.rest.response.model.ItemSearchResult;
+import org.mmpp.amazon.rest.response.model.Manufacturer;
+import org.mmpp.amazon.rest.response.model.OperationRequest;
+import org.mmpp.amazon.rest.response.model.ProductGroup;
+import org.mmpp.amazon.rest.response.model.Title;
 
 public class AmazonInquisitorTest {
 
@@ -47,7 +47,7 @@ public class AmazonInquisitorTest {
 		ItemSearchResponse itemSearchResponse = (ItemSearchResponse)getter.postRequest(postRequest);
 		ItemSearchResult itemResult = itemSearchResponse.getItemResult();
 		{
-			org.mmpp.amazon.ecs.response.model.Request request = itemResult.getRequest();
+			org.mmpp.amazon.rest.response.model.Request request = itemResult.getRequest();
 			assertTrue(request.isValid());
 			AbstractItemRequest itemRequest = request.getItemRequest();
 			ItemSearchRequest itemSearchRequest = (ItemSearchRequest)itemRequest;
@@ -59,10 +59,10 @@ public class AmazonInquisitorTest {
 		assertEquals(2,itemResult.getTotalPage());
 		assertEquals(17,itemResult.getTotalResult());
 		assertEquals("http://www.amazon.co.jp/gp/redirect.html?camp=2025&creative=5143&location=http%3A%2F%2Fwww.amazon.co.jp%2Fgp%2Fsearch%3Fkeywords%3D%25E7%25A5%259E%25E5%25A1%259A%2B%25E3%2581%25A8%25E3%2581%258D%25E3%2581%258A%26url%3Dsearch-alias%253Dbooks-single-index&linkCode=xm2&tag=AssociateTag-22&SubscriptionId=AWSAccessKeyId",itemResult.getMoreSearchResultsUrl());
-		java.util.List<org.mmpp.amazon.ecs.response.model.Item> items = itemResult.getItems();
+		java.util.List<org.mmpp.amazon.rest.response.model.Item> items = itemResult.getItems();
 		assertEquals(10,items.size());
 		{
-			org.mmpp.amazon.ecs.response.model.Item item = items.get(0);
+			org.mmpp.amazon.rest.response.model.Item item = items.get(0);
 			assertEquals("406321026X",item.getASIN());
 			assertEquals("http://www.amazon.co.jp/%E3%83%90%E3%82%A4%E3%82%AD%E3%83%83%E3%82%BA-1-%E3%82%A2%E3%83%95%E3%82%BF%E3%83%8C%E3%83%BC%E3%83%B3KC-%E7%A5%9E%E5%A1%9A-%E3%81%A8%E3%81%8D%E3%81%8A/dp/406321026X%3FSubscriptionId%3DAWSAccessKeyId%26tag%3DAssociateTag-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D406321026X",item.getDetailPageURL());
 			java.util.List<ItemLink> itemLinks = item.getItemLinks();

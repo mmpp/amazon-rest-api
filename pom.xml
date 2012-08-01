@@ -3,10 +3,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.mmpp.amazon</groupId>
+  <groupId>org.mmpp.amazon.rest</groupId>
   <version>2.0.0</version>
-  <artifactId>amazon-ecs</artifactId>
-  <name>Amazon Web Service</name>
+  <artifactId>rest-api</artifactId>
+  <name>Amazon Web Service REST API</name>
 	<build>
     	<plugins>
 			<plugin>
@@ -71,12 +71,12 @@
 			<version>2.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mmpp.amazon</groupId>
+			<groupId>org.mmpp.amazon.rest</groupId>
 			<artifactId>request-generator</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mmpp.amazon</groupId>
+			<groupId>org.mmpp.amazon.rest</groupId>
 			<artifactId>response-parser</artifactId>
 			<version>1.0.0</version>
 		</dependency>

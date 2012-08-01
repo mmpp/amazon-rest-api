@@ -1,14 +1,14 @@
-package org.mmpp.amazon.ecs;
+package org.mmpp.amazon.rest;
 
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.mmpp.amazon.ecs.request.generator.RequestParameterException;
-import org.mmpp.amazon.ecs.request.model.Request;
-import org.mmpp.amazon.ecs.response.model.AbstractResponse;
-import org.mmpp.amazon.ecs.response.parser.AmazonServiceResponseParser;
-import org.mmpp.amazon.ecs.response.parser.AmazonServiceResponseParserImpl;
+import org.mmpp.amazon.rest.request.generator.RequestParameterException;
+import org.mmpp.amazon.rest.request.model.Request;
+import org.mmpp.amazon.rest.response.model.AbstractResponse;
+import org.mmpp.amazon.rest.response.parser.AmazonServiceResponseParser;
+import org.mmpp.amazon.rest.response.parser.AmazonServiceResponseParserImpl;
 import org.xml.sax.SAXException;
 
 public abstract class AbstractAccessService {

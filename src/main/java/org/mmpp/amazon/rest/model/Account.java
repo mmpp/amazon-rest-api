@@ -1,4 +1,4 @@
-package org.mmpp.amazon.ecs.model;
+package org.mmpp.amazon.rest.model;
 
 /**
  * Amazonアクセスアカウント
